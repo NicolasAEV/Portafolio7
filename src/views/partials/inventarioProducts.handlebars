@@ -1,0 +1,31 @@
+{{#if productos}}
+{{#each productos}}
+<div class="w-full  bg-white rounded-xl shadow-md overflow-hidden mt-10 ">
+    <div class="md:flex">
+        <div class="md:shrink-0">
+            <img class=" w-full object-cover h-auto md:h-48 md:w-48" src="{{this.imagen}}" alt="imagen de producto">
+        </div>
+        <div class="p-8 flex-auto">
+            <div class="uppercase tracking-wide text-sm text-pink-500 font-semibold">{{this.nombre}}</div>
+            <a href="#" class="block mt-1 text-sm leading-tight font-medium text-black">id : {{this.id}}</a>
+            <a href="#" class="block mt-1 text-sm leading-tight font-medium text-black ">precio : ${{this.precio}}</a>
+            <a href="#" class="block mt-1 text-sm leading-tight font-medium text-black ">Stock : {{this.stock}}</a>
+            <a href="#" class="block mt-1 text-sm leading-tight font-medium text-black ">categoria : {{this.categoria}}</a>
+            <p class="mt-2 text-slate-500">descripcion : {{this.descripcion}}</p>
+        </div>
+        <div class="grid justify-content content-center m-1">
+            <div>
+            <a onclick="eliminarProducto('{{this.id}}')" class="bg-red-200 hover:bg-red-300 px-2 py-1 rounded-full mb-2">Eliminar</a>
+              <a type="submit" href="/actualizar/{{this.id}}" class="bg-yellow-200 hover:bg-yellow-300 px-2 py-1 rounded-full ">Actualizar</a>
+           
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+
+{{else}}
+<div >
+    <h2 class="text-center text-3xl">por el momento no tienes productos</h2>
+</div>
+{{/if}}

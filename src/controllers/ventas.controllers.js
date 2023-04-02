@@ -11,13 +11,11 @@ export const getAllVentas = async (req, res) => {
             raw: false,
             include: [{ model: Detalle_orden }]
         });
-        console.log(ordenes[0].dataValues)
         let productosFormatiados = ordenes.map(producto => {
             let objectProducto = {
                 id: producto.dataValues.id,
                 fecha: producto.dataValues.fecha,
                 tipo: producto.dataValues.tipo_boleta,
-                // precio: producto.dataValues.precio,
             }
             return objectProducto;
         })
@@ -28,7 +26,7 @@ export const getAllVentas = async (req, res) => {
 }
 
 export const createOrden = async (req, res) => {
-    let id_cliente = req.body.id;
+    let id_cliente = req.usuario.id;
     const t = await sequelize.transaction();
 
     try {
@@ -63,7 +61,7 @@ export const createOrden = async (req, res) => {
 
         for (let index = 0; index < detalleProductos.length; index++) {
             let id_producto = detalleProductos[index].id_producto;
-            console.log('===================== id producto' ,id_producto)
+         
             let cantidad = detalleProductos[index].cantidad;
             const producto = await Producto.findOne({
                 raw: false,

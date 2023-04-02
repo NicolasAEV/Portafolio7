@@ -3,7 +3,7 @@ const app = express();
 //llamamos a la biblioteca path de mandera de poder unir archivos
 import { join ,dirname} from 'path';
 import { fileURLToPath } from 'url';
-
+import fileUpload from 'express-fileupload';
 // obtenemos una funcion de exhbs
 import { create } from 'express-handlebars';
 import cors from 'cors';
@@ -18,6 +18,9 @@ import apiPorductos from './routes/productos.routes.js';
 import apiInventario from './routes/inventory.routes.js';
 import carrito from './routes/carritos.routes.js'
 import apiVentas from './routes/ventas.routes.js'
+//RUTA API REGISTRO Y LOGIN
+import apiLogin from './routes/login.routes.js'
+//pagina no encontrada
 import err404 from './routes/404.routes.js'
 
 //en caso de utilizar envio entre servidores
@@ -42,6 +45,8 @@ app.use(apiPorductos)
 app.use(apiInventario)
 app.use(apiVentas)
 app.use(routerViews)
+//login y registro cliente
+app.use(apiLogin)
 
 // 
 app.use(err404)

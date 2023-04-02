@@ -7,7 +7,7 @@
 
 ### De que trata el proyecto
 ***
-Modulo 7 Desarrollo de aplicaciones WEB con EXPRESS
+Modulo 8 IMPLEMENTACION DE API BACKEND NODE EXPRESS
 
 Este proyecto del módulo 7 "Acceso a datos en aplicaciones Node" utiliza una combinación de herramientas y tecnologías, como Sequelize, pg, Express, Express-handlebars, Postgres y Tailwind CDN, para crear una página web de comercio electrónico. La aplicación permite realizar operaciones CRUD en el inventario, ver ventas y visualizar y comprar productos. Con estas funcionalidades, este proyecto es una demostración sólida de cómo se pueden utilizar estas tecnologías para crear aplicaciones web escalables y robustas en Node.js.
 

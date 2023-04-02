@@ -78,8 +78,7 @@ export const getProductsById = async (req, res) => {
 
   //obtenemos todas las categorias
   let categorias = await Categoria.findAll({ raw: true });
-  // console.log(categoria)
-  // console.log(productos.dataValues)
+
   res.render('actualizar-producto', {
     title: 'actualizar producto',
     producto,
@@ -128,7 +127,7 @@ export const addProduct = async (req, res) => {
 export const getVentas = async (req,res) =>{
   let ordenes = await Orden.findAll({raw :false , 
                                     include :[{model : Detalle_orden }] });
-  console.log(ordenes[0].dataValues)
+
   let productosFormatiados = ordenes.map(producto => {
     let objectProducto = {
       id: producto.dataValues.id,
@@ -138,7 +137,7 @@ export const getVentas = async (req,res) =>{
     }
     return objectProducto;
   })
-  console.log(productosFormatiados)
+
   res.render('ventas',{
     title : 'ventas',
     ordenes : productosFormatiados

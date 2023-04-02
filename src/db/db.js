@@ -2,20 +2,16 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 import {Sequelize}  from "sequelize";
 
-    const DB_DATABASE = process.env.DB_DATABASE;
-    const DB_USER = process.env.DB_USER;
-    const DB_HOST = process.env.DB_HOST;
-    const DB_PASSWORD = process.env.DB_PASSWORD;
+    const DB_DATABASE = process.env.PGDATABASE;
+    const DB_USER = process.env.PGUSER;
+    const DB_HOST = process.env.PGHOST;
+    const DB_PASSWORD = process.env.PGPASSWORD;
 
-export const sequelize  = new Sequelize (DB_DATABASE,DB_USER,DB_PASSWORD,{
-    host :DB_HOST,
-    dialect:'postgres',
-    dialectOptions : {
-        ssl : {
-            require : true,
-            rejectUnauthorized : false
-        }
-    }
+export const sequelize  = new Sequelize ("railway","postgres","WipzFFeUQUVPkHxB7pbr",{
+    host :"containers-us-west-32.railway.app",
+    dialect:"postgres",
+    port : 7789
+ 
 })
 
     

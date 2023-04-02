@@ -42,7 +42,7 @@ export const Cliente  = sequelize.define('Cliente',{
             notEmpty: true
         }
     },
-    rut :{
+    rut :{ 
         type : DataTypes.STRING(13),
         allowNull: false,
         validate: {

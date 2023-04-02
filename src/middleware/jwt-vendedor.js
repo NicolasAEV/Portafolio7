@@ -1,8 +1,8 @@
 
-import { getClienteForValidation } from '../controllers/user.controllers.js';
-const SECRETO = "123456";
+import { getClienteForValidation } from '../controllers/cliente.controllers.js';
+const SECRETO = "987654321";
 import jwt from 'jsonwebtoken';
-export const verificarToken = (req, res, next) => {
+export const verificarTokenVendedor = (req, res, next) => {
 
     let token;
     let tokenQuery = req.query.token;
@@ -18,7 +18,7 @@ export const verificarToken = (req, res, next) => {
     if(token){
         jwt.verify(token, SECRETO, (error, data) => {
             if(error) return res.status(401).json({code:401, message:"Token no válido."})
-            req.usuario = data.usuario
+            req.vendedor = data.vendedor
             next();
         })
     }else{
@@ -26,16 +26,16 @@ export const verificarToken = (req, res, next) => {
     }
 }
 
-export const emisionToken = async (req, res, next) => {
+export const emisionTokenVendedor = async (req, res, next) => {
     try {
         let { email, password } = req.body;
         console.log(email,password)
-        getClienteForValidation(email, password)
-        .then(usuario => {
-            console.log(usuario)
-            if(usuario == undefined) return res.status(401).json({code: 401, message: "Pruebe intentando otra vez"})
+        getVendedorForValidation(email, password)
+        .then(vendedor => {
+            console.log(vendedor)
+            if(vendedor == undefined) return res.status(401).json({code: 401, message: "Pruebe intentando otra vez"})
             let tokenKey
-            jwt.sign({usuario}, SECRETO, (err, token) => {
+            jwt.sign({vendedor}, SECRETO, (err, token) => {
                 if(err){
                     res.status(500).json({code: 500, message: "No se pudo emitir un token"})
                 }else{

@@ -1,9 +1,19 @@
 
 //function 
 
+
 // peticion fetch para recuperar los datos del carrito
 const getProducts = () => {
-    fetch('/api/carrito')
+    let myHeaders = new Headers();
+    myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
+    console.log(myHeaders)
+    const requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        // body: JSON.stringify(objeto),
+        redirect: 'follow'
+    };
+    fetch('/api/carrito',requestOptions)
         .then(response => response.json())
         .then(data => {
 
@@ -107,12 +117,15 @@ const cargarPrecio = (productos) => {
 }
 //modificar cantiadad
 const restar = (id) => {
-
-    fetch("/api/carrito/" + id, {
-        method: "DELETE",
-        redirect : 'manual'
-
-    })
+    let myHeaders = new Headers();
+    myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
+    console.log(myHeaders)
+    const requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        redirect: 'manual'
+    };
+    fetch("/api/carrito/" + id,requestOptions )
         .then(response => response.json())
         .then(result => {
             getProducts()
@@ -125,11 +138,15 @@ const restar = (id) => {
 }
 
 const eliminarCarrito = (id) => {
-    fetch("/api/v1/carrito/" + id, {
-        method: "DELETE",
-        redirect : 'manual'
-
-    })
+    let myHeaders = new Headers();
+    myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
+    console.log(myHeaders)
+    const requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        redirect: 'manual'
+    };
+    fetch("/api/v1/carrito/" + id,requestOptions )
         .then(response => response.json())
         .then(result => {
             alert(result.message);
@@ -141,13 +158,17 @@ const eliminarCarrito = (id) => {
         });
 }
 const sumar = (id) => {
+    let myHeaders = new Headers();
+    myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
+    console.log(myHeaders)
+    const requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'manual'
+    };
     let url = "/api/carrito/" + id;
     console.log(url)
-    fetch(url, {
-        method: "GET",
-        redirect : 'manual'
-
-    })
+    fetch(url,requestOptions)
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -163,26 +184,21 @@ const sumar = (id) => {
 
 
 const comprar = () => {
-    let id = 1;
-    let client = {
-        id: id
-    }
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    fetch("/api/ventas", {
-        method: "POST",
+    let myHeaders = new Headers();
+    myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
+    console.log(myHeaders)
+    const requestOptions = {
+        method: 'POST',
         headers: myHeaders,
-        body: JSON.stringify(client),
-        redirect : 'manual'
-    })
+        redirect: 'manual'
+    };
+    fetch("/api/ventas",requestOptions )
         .then(response => response.json())
         .then(data => {
             if (data.code == 500) {
-            alert('todo mal ')
                 errorCompra()
                 main()
             } else {
-                alert('todo salio bn')
                 mensaje();
                 main();
             }

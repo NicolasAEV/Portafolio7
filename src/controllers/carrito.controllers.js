@@ -7,16 +7,17 @@ import { sequelize } from '../db/db.js'
 
 export const getCarrito = async (req, res) => {
   try {
-    let id_cliente = 1;
+    let id_cliente = req.usuario.id;
+    console.log(id_cliente)
     let productos = await sequelize.query(`SELECT P.id, P.nombre_producto as nombre, P.precio ,P.imagen ,P.stock,DC.cantidad ,(P.precio * DC.cantidad) as total FROM "Producto" AS P
         JOIN "Detalle_carrito" as DC
         ON P.id = DC.id_producto
         JOIN "Carrito" as CA
         ON DC.id_carrito = CA.id
-        WHERE CA.id_cliente = 1`)
-
+        WHERE CA.id_cliente = ${id_cliente}`)
     res.status(200).json({ code: 200, data: productos[0] })
   } catch (error) {
+    console.log(error.stack)
     res.status(500).json({ code: 500, message: error })
   }
 
@@ -28,7 +29,7 @@ export const addProductCart = async (req, res) => {
     console.log(id , "add")
 
     console.log(id)
-    let id_cliente = 1;
+    let id_cliente = req.usuario.id;
     let [carroCliente, creado] = await Carrito.findOrCreate({
       raw: true,
       where: id_cliente,
@@ -79,10 +80,10 @@ export const deleteProductCart = async (req, res) => {
     //id_cliente, id_producto, cantidad
     let { id } = req.params;
     console.log(id , "delete")
-    let idCliente = 1;
+    let id_cliente = req.usuario.id;
     const carroCliente = await Carrito.findOne({
       raw: true,
-      where: { id_cliente: idCliente },
+      where: { id_cliente: id_cliente },
     })
 
     const carroConProductos = await Detalle_carrito.findOne({
@@ -112,10 +113,11 @@ export const deleteProductCart = async (req, res) => {
 export const deleteProductCartALL = async (req,res) =>{
   try {
     let {id}  = req.params
-    let idCliente = 1;
+    let id_cliente = req.usuario.id;
+
     const carroCliente = await Carrito.findOne({
       raw: true,
-      where: { id_cliente: idCliente },
+      where: { id_cliente: id_cliente },
     })
     const carroConProductos = await Detalle_carrito.findOne({
       where: { id_carrito: carroCliente.id, id: id }

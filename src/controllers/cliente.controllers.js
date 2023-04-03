@@ -6,7 +6,7 @@ import { Op } from 'sequelize';
 export const getClienteForValidation = async (email,password) =>{
         let cliente = await Cliente.findOne({
             raw:true,
-            attributes :[id, nombre ,email],
+            attributes :['id', 'nombre_cliente' ,'email'],
             where : {
                 email : email , contraseña : password
          } })

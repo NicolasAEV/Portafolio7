@@ -77,7 +77,6 @@ export const deleteProductCart = async (req, res) => {
   try {
     //id_cliente, id_producto, cantidad
     let { id } = req.params;
-
     let id_cliente = req.usuario.id;
     const carroCliente = await Carrito.findOne({
       raw: true,
@@ -85,7 +84,7 @@ export const deleteProductCart = async (req, res) => {
     })
 
     const carroConProductos = await Detalle_carrito.findOne({
-      where: { id_carrito: carroCliente.id, id_producto : id }
+      where: { id_carrito: carroCliente.id_cliente,id_producto : id }
     });
 
     if (carroConProductos == null) {
@@ -93,13 +92,11 @@ export const deleteProductCart = async (req, res) => {
     }
 
     await carroConProductos.decrement({ cantidad: 1 })
-
+   
     if (carroConProductos.dataValues.cantidad == 0) {
       carroConProductos.destroy();
       return res.status(201).json({ message: "Ha quitado todos los productos de ese tipo." })
     }
-
-
     res.status(201).json({ message: "Producto Eliminado correctamente." })
 
   } catch (error) {
@@ -111,19 +108,22 @@ export const deleteProductCart = async (req, res) => {
 export const deleteProductCartALL = async (req,res) =>{
   try {
     let {id}  = req.params
+    console.log(id)
+
     let id_cliente = req.usuario.id;
 
     const carroCliente = await Carrito.findOne({
       raw: true,
       where: { id_cliente: id_cliente },
     })
+    console.log(carroCliente)
     const carroConProductos = await Detalle_carrito.findOne({
-      where: { id_carrito: carroCliente.id, id: id }
+      where: { id_carrito: carroCliente.id_cliente,id_producto : id }
     });
-
+    console.log(carroConProductos)
     carroConProductos.destroy();
 
-    return res.status(201).json({ message: "Ha quitado todos los productos de ese tipo." })
+     res.status(201).json({ message: "Ha quitado todos los productos de ese tipo." })
 
   } catch (error) {
     console.log(error)

@@ -30,7 +30,7 @@ export const emisionTokenCliente = async (req, res, next) => {
         let { email, password } = req.body;
         getClienteForValidation(email, password)
         .then(usuario => {
-
+            
             if(usuario == undefined) return res.status(401).json({code: 401, message: "Pruebe intentando otra vez"})
             let tokenKey
             jwt.sign({usuario}, SECRETO, (err, token) => {

@@ -117,6 +117,7 @@ const cargarPrecio = (productos) => {
 }
 //modificar cantiadad
 const restar = (id) => {
+    console.log(id)
     let myHeaders = new Headers();
     myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
     console.log(myHeaders)
@@ -125,7 +126,9 @@ const restar = (id) => {
         headers: myHeaders,
         redirect: 'manual'
     };
-    fetch("/api/carrito/" + id,requestOptions )
+    let url = "/api/carrito/"+id;
+
+    fetch(url,requestOptions )
         .then(response => response.json())
         .then(result => {
             getProducts()
@@ -138,6 +141,8 @@ const restar = (id) => {
 }
 
 const eliminarCarrito = (id) => {
+    console.log(id)
+
     let myHeaders = new Headers();
     myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
     console.log(myHeaders)
@@ -146,7 +151,8 @@ const eliminarCarrito = (id) => {
         headers: myHeaders,
         redirect: 'manual'
     };
-    fetch("/api/v1/carrito/" + id,requestOptions )
+
+    fetch("/api/v1/carrito/"+id,requestOptions )
         .then(response => response.json())
         .then(result => {
             alert(result.message);
@@ -158,6 +164,7 @@ const eliminarCarrito = (id) => {
         });
 }
 const sumar = (id) => {
+    
     let myHeaders = new Headers();
     myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
     console.log(myHeaders)

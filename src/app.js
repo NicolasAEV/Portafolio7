@@ -19,7 +19,6 @@ import routerViews from './routes/views.routes.js';
 import apiLogin from './routes/login.routes.js'
 //prueba api-rest
 import apiInventario from './routes/inventory.routes.js';
-
 import apiPorductos from './routes/productos.routes.js';
 import carrito from './routes/carritos.routes.js'
 import apiVentas from './routes/ventas.routes.js'

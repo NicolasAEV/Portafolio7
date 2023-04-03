@@ -45,7 +45,8 @@ $ npm run dev : correr proyecto
 ```
 ## github
 ***
-para acceder al modulo de inventario http://localhost:port/inventario
+para acceder al modulo de inventario http://localhost:port/loginadmin
 perfil github https://github.com/NicolasAEV/Portafolio6
+link deploit https://portafolio7-production.up.railway.app
 
 

@@ -155,7 +155,6 @@ const eliminarCarrito = (id) => {
     fetch("/api/v1/carrito/"+id,requestOptions )
         .then(response => response.json())
         .then(result => {
-            alert(result.message);
             getProducts()
             // location.reload();
         })
@@ -183,7 +182,8 @@ const sumar = (id) => {
                 alert("Se ha generado el siguiente problema: " + data.message)
             } else {
 
-                location.reload()
+                getProducts()
+
 
             }
         }).catch(error => console.log(error))

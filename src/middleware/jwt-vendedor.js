@@ -1,12 +1,12 @@
 
-import { getClienteForValidation } from '../controllers/cliente.controllers.js';
+import { getVendedorForValidation } from '../controllers/vendedor,controller.js';
 const SECRETO = "987654321";
 import jwt from 'jsonwebtoken';
 export const verificarTokenVendedor = (req, res, next) => {
 
     let token;
     let tokenQuery = req.query.token;
-    console.log(tokenQuery)
+
     if(tokenQuery) token = tokenQuery;
     let tokenHeader = req.headers['authorization'];
 
@@ -18,6 +18,7 @@ export const verificarTokenVendedor = (req, res, next) => {
     if(token){
         jwt.verify(token, SECRETO, (error, data) => {
             if(error) return res.status(401).json({code:401, message:"Token no válido."})
+         
             req.vendedor = data.vendedor
             next();
         })
@@ -28,11 +29,11 @@ export const verificarTokenVendedor = (req, res, next) => {
 
 export const emisionTokenVendedor = async (req, res, next) => {
     try {
-        let { email, password } = req.body;
-        console.log(email,password)
-        getVendedorForValidation(email, password)
+        let { rut, password } = req.body;
+   
+        getVendedorForValidation(rut, password)
         .then(vendedor => {
-            console.log(vendedor)
+          
             if(vendedor == undefined) return res.status(401).json({code: 401, message: "Pruebe intentando otra vez"})
             let tokenKey
             jwt.sign({vendedor}, SECRETO, (err, token) => {
@@ -48,7 +49,7 @@ export const emisionTokenVendedor = async (req, res, next) => {
             res.status(500).json({code: 500, message: "Error del servidor"})
         })
     } catch (error) {
-        console.log(error)
+        console.log(error.stack)
         return res.status(500).json({code: 500, message: "error interno del servidor"})
     }
 }

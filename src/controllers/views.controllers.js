@@ -5,7 +5,7 @@ import { Carrito } from '../models/Carrito.model.js'
 import { literal } from 'sequelize'
 import {Orden} from '../models/Orden.model.js'
 import {Detalle_orden} from '../models/Detalle-orden.model.js'
-
+import { Op } from 'sequelize';
 //gets all products
 export const getProuctsCarrito = async (req, res) => {
 
@@ -47,7 +47,7 @@ export const getProductsInventario = async (req, res) => {
     }
 
   });
-  // console.log(productos[0].Categorium)
+
   let productosFormatiados = productos.map(producto => {
     let objectProducto = {
       id: producto.dataValues.id,
@@ -63,6 +63,7 @@ export const getProductsInventario = async (req, res) => {
   let categorias = await Categoria.findAll();
   let categoriaId = await Categoria.findAll({ raw: true });
   res.render('inventory', {
+    layout : 'admin',
     title: 'inicio',
     productos: productosFormatiados,
     categoria: categorias
@@ -81,6 +82,7 @@ export const getProductsById = async (req, res) => {
 
   res.render('actualizar-producto', {
     title: 'actualizar producto',
+    layout : 'admin',
     producto,
     categorias,
   })
@@ -99,6 +101,7 @@ export const getDetailsById = async (req, res) => {
   let categorias = await Categoria.findAll({ raw: true });
 
   res.render('detalle', {
+  
     title: 'detalle producto',
     producto,
     categorias,
@@ -109,10 +112,10 @@ export const getDetailsById = async (req, res) => {
 export const addProduct = async (req, res) => {
   try {
     let { nombre, precio, stock, imagen, categoria, descripcion } = req.body
-
+    let id_vendedor = req.vendedor.id
     let fecha = new Date();
-    // console.log(nombre_producto, precio, stock, imagen, descripcion, fecha)
-    let producto = await Producto.create({ nombre_producto: nombre, precio: precio, stock: stock, imagen: imagen, id_categoria: categoria, descripcion: descripcion, fecha: fecha })
+  
+    let producto = await Producto.create({ nombre_producto: nombre, precio: precio, stock: stock, imagen: imagen, id_categoria: categoria, descripcion: descripcion, fecha: fecha ,id_vendedor:id_vendedor})
     res.render('inventory', {
       producto,
       title: inventario
@@ -139,6 +142,7 @@ export const getVentas = async (req,res) =>{
   })
 
   res.render('ventas',{
+    layout : 'admin',
     title : 'ventas',
     ordenes : productosFormatiados
   })

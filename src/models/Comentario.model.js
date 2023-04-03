@@ -27,14 +27,7 @@ export const Comentario  = sequelize.define('Comentario',{
             notEmpty: true
         }
     }
-    // ,
-    // id_cliente :{
-    //     type : DataTypes.INTEGER,
-    //     allowNull: false,
-    //     validate: {
-    //         notEmpty: true
-    //     }
-    // }
+
 },{
     timestamps: false,
     tableName : 'Comentario',

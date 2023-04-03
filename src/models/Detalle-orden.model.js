@@ -27,21 +27,6 @@ export const Detalle_orden  = sequelize.define('Detalle_orden',{
             notEmpty: true
         }
     }
-    // ,
-    // id_producto :{
-    //     type : DataTypes.INTEGER,
-    //     allowNull: false,
-    //     validate: {
-    //         notEmpty: true
-    //     }
-    // }, 
-    // id_orden :{
-    //     type : DataTypes.INTEGER,
-    //     allowNull: false,
-    //     validate: {
-    //         notEmpty: true
-    //     }
-    // }
 },{
     timestamps: false,
     tableName : 'Detalle_orden',

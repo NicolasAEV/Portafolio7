@@ -4,7 +4,7 @@ import { Carrito } from '../models/Carrito.model.js'
 import { Producto } from '../models/Producto.model.js'
 import { Detalle_carrito } from "../models/Detalle-carrito.model.js"
 import { sequelize } from "../db/db.js"
-
+import { Op } from 'sequelize';
 export const getAllVentas = async (req, res) => {
     try {
         let ordenes = await Orden.findAll({

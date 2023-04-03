@@ -6,7 +6,6 @@ export const verificarTokenCliente = (req, res, next) => {
 
     let token;
     let tokenQuery = req.query.token;
-    console.log(tokenQuery)
     if(tokenQuery) token = tokenQuery;
     let tokenHeader = req.headers['authorization'];
 
@@ -29,10 +28,9 @@ export const verificarTokenCliente = (req, res, next) => {
 export const emisionTokenCliente = async (req, res, next) => {
     try {
         let { email, password } = req.body;
-        console.log(email,password)
         getClienteForValidation(email, password)
         .then(usuario => {
-            console.log(usuario)
+
             if(usuario == undefined) return res.status(401).json({code: 401, message: "Pruebe intentando otra vez"})
             let tokenKey
             jwt.sign({usuario}, SECRETO, (err, token) => {

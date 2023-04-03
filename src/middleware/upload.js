@@ -10,7 +10,7 @@ export const upload = (req, res, next) => {
         
         if(req.files == null) return res.status(400).json({code: 400, message: "Debe proporcionar una imagen."})
         let {imagen} = req.files;
-        console.log(imagen)
+     
         let mimetype = imagen.mimetype.split("/")[0];
         if(mimetype != "image") return res.status(400).json({code: 400, message: "El archivo subido no corresponde a una imagen."})
 
@@ -35,7 +35,7 @@ export const upload = (req, res, next) => {
 export const uploadUpdate = (req, res, next) => {
   try{
       let {imagen} = req.files;
-      console.log(imagen)
+  
       let mimetype = imagen.mimetype.split("/")[0];
       if(mimetype != "image") return res.status(400).json({code: 400, message: "El archivo subido no corresponde a una imagen."})
 

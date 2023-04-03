@@ -34,28 +34,6 @@ export const Orden  = sequelize.define('Orden',{
             notEmpty: true
         }
     }
-    // ,
-    // id_estado :{
-    //     type : DataTypes.INTEGER,
-    //     allowNull: false,
-    //     validate: {
-    //         notEmpty: true
-    //     }
-    // }, 
-    // id_cliente :{
-    //     type : DataTypes.INTEGER,
-    //     allowNull: false,
-    //     validate: {
-    //         notEmpty: true
-    //     }
-    // },  
-    // id_cupon :{
-    //     type : DataTypes.INTEGER,
-    //     allowNull: true,
-    //     validate: {
-    //         notEmpty: true
-    //     }
-    // }
 },{
     timestamps: false,
     tableName : 'Orden',

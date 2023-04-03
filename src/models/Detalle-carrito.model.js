@@ -20,21 +20,7 @@ export const Detalle_carrito  = sequelize.define('Detalle_carrito',{
             notEmpty: true
         }
     }
-    // ,
-    // id_producto :{
-    //     type : DataTypes.INTEGER,
-    //     allowNull: false,
-    //     validate: {
-    //         notEmpty: true
-    //     }
-    // }, 
-    // id_carrito :{
-    //     type : DataTypes.INTEGER,
-    //     allowNull: false,
-    //     validate: {
-    //         notEmpty: true
-    //     }
-    // }
+
 },{
     timestamps: false,
     tableName : 'Detalle_carrito',

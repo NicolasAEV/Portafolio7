@@ -7,19 +7,23 @@ import fileUpload from 'express-fileupload';
 // obtenemos una funcion de exhbs
 import { create } from 'express-handlebars';
 import cors from 'cors';
+import morgan from 'morgan'
+
 
 //importamos las rutas
 //rutas iniciales de la pagina
 
 // //rutas front end
 import routerViews from './routes/views.routes.js';
-//prueba api-rest
-import apiPorductos from './routes/productos.routes.js';
-import apiInventario from './routes/inventory.routes.js';
-import carrito from './routes/carritos.routes.js'
-import apiVentas from './routes/ventas.routes.js'
 //RUTA API REGISTRO Y LOGIN
 import apiLogin from './routes/login.routes.js'
+//prueba api-rest
+import apiInventario from './routes/inventory.routes.js';
+
+import apiPorductos from './routes/productos.routes.js';
+import carrito from './routes/carritos.routes.js'
+import apiVentas from './routes/ventas.routes.js'
+
 //pagina no encontrada
 import err404 from './routes/404.routes.js'
 
@@ -34,6 +38,7 @@ app.use(fileUpload({
   limits: { fileSize: 3 * 1024 * 1024 },
   abortOnLimit : true ,
 }));
+app.use(morgan('tiny'))
 
 
 //union de archivos estaticos y rutas dinamicas

@@ -1,5 +1,5 @@
 let formularioLogin = document.getElementById('formularioLogin')
-let email = document.getElementById('email')
+let rut = document.getElementById('rut')
 let password = document.getElementById('password')
 
 formularioLogin.addEventListener("submit", (event) => {
@@ -7,7 +7,7 @@ formularioLogin.addEventListener("submit", (event) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({
-    email: email.value,
+    rut: rut.value,
     password: password.value
     });
     console.log(raw)
@@ -17,7 +17,7 @@ formularioLogin.addEventListener("submit", (event) => {
     body: raw,
     redirect: 'follow'
     };
-    fetch("/api/login", requestOptions)
+    fetch("/api/login/admin", requestOptions)
     .then(response => response.json())
     .then(result => {
         if(result.code == 200){
@@ -25,7 +25,6 @@ formularioLogin.addEventListener("submit", (event) => {
             console.log(result.token)
             localStorage.setItem("jwtVendedor", result.token)
             let token = localStorage.getItem('jwtVendedor');
-
             location.href = "/inventario?token="+token;
         }else if(result.code == 401){
             alert(result.message)

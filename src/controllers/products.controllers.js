@@ -1,4 +1,5 @@
 import { Producto } from '../models/Producto.model.js'
+import { Op } from 'sequelize';
 //gets all products
 //obtiene todos los productos
 export const getProducts = async (req, res) => {
@@ -23,10 +24,12 @@ export const addProductInventory = async (req, res) => {
   try {
     let { nombre, precio, stock, imagen, categoria, descripcion } = req.body
     let fecha = new Date();
-    // console.log(nombre_producto, precio, stock, imagen, descripcion, fecha)
-    let producto = await Producto.create({ nombre_producto : nombre, precio : precio, stock : stock, imagen : imagen, id_categoria : categoria, descripcion : descripcion, fecha:fecha })
+    let id_vendedor = req.vendedor.id
+    let producto = await Producto.create({ nombre_producto : nombre, precio : precio, stock : stock, imagen : imagen, id_categoria : categoria, descripcion : descripcion, fecha:fecha,id_vendedor : id_vendedor })
     res.status(201).json({ code: 201, message: "producto ingresado con exito." })
   } catch (error) {
+
+    console.log(error.stack)
     res.status(500).json({ code: 500, message: "Error al guardar el producto." })
   }
 }
@@ -34,14 +37,15 @@ export const addProductInventory = async (req, res) => {
 export const updateProduct = async (req, res) => {
   try {
     let {id, nombre, precio, stock, imagen, categoria, descripcion } = req.body
+
     let productos  = await Producto.findByPk(id);
-    console.log(productos)
+
     if(productos== null){
       res.status(400).json({ code: 400, message: "el prducto que intenta actualizar no existe" })
 
     }else{
       let fecha = new Date();
-      // console.log(nombre_producto, precio, stock, imagen, descripcion, fecha)
+   
       let producto = await Producto.update({ nombre_producto : nombre, precio : precio, stock : stock, imagen : imagen, id_categoria : categoria, descripcion : descripcion, fecha:fecha },{
         where :{
           id : id

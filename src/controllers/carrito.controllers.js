@@ -4,7 +4,7 @@ import { Cliente } from '../models/Cliente.model.js'
 import { Detalle_carrito } from '../models/Detalle-carrito.model.js'
 import { Carrito } from '../models/Carrito.model.js'
 import { sequelize } from '../db/db.js'
-
+import { Op } from 'sequelize';
 export const getCarrito = async (req, res) => {
   try {
     let id_cliente = req.usuario.id;
@@ -26,9 +26,7 @@ export const getCarrito = async (req, res) => {
 export const addProductCart = async (req, res) => {
   try {
     let { id } = req.params ;
-    console.log(id , "add")
 
-    console.log(id)
     let id_cliente = req.usuario.id;
     let [carroCliente, creado] = await Carrito.findOrCreate({
       raw: true,
@@ -47,7 +45,7 @@ export const addProductCart = async (req, res) => {
       }
     })
     let producto = await Producto.findByPk(id);
-    console.log(creado2)
+
 
     if (!creado2) {
      
@@ -79,7 +77,7 @@ export const deleteProductCart = async (req, res) => {
   try {
     //id_cliente, id_producto, cantidad
     let { id } = req.params;
-    console.log(id , "delete")
+
     let id_cliente = req.usuario.id;
     const carroCliente = await Carrito.findOne({
       raw: true,

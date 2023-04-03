@@ -1,12 +1,9 @@
 
-//function 
-
-
 // peticion fetch para recuperar los datos del carrito
 const getProducts = () => {
     let myHeaders = new Headers();
     myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
-    console.log(myHeaders)
+  
     const requestOptions = {
         method: 'GET',
         headers: myHeaders,
@@ -36,7 +33,7 @@ const main = () => {
 const cargarCarrito = (cart) => {
     let contenedor = document.querySelector('.carrito')
     let template = '';
-    console.log(cart)
+
     if (cart.length > 0) {
         cart.forEach(productos => {
 
@@ -117,10 +114,8 @@ const cargarPrecio = (productos) => {
 }
 //modificar cantiadad
 const restar = (id) => {
-    console.log(id)
     let myHeaders = new Headers();
     myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
-    console.log(myHeaders)
     const requestOptions = {
         method: 'DELETE',
         headers: myHeaders,
@@ -132,7 +127,6 @@ const restar = (id) => {
         .then(response => response.json())
         .then(result => {
             getProducts()
-            // location.reload();
         })
         .catch(error => {
             alert(error)
@@ -141,11 +135,10 @@ const restar = (id) => {
 }
 
 const eliminarCarrito = (id) => {
-    console.log(id)
-
+  
     let myHeaders = new Headers();
     myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
-    console.log(myHeaders)
+ 
     const requestOptions = {
         method: 'DELETE',
         headers: myHeaders,
@@ -156,7 +149,6 @@ const eliminarCarrito = (id) => {
         .then(response => response.json())
         .then(result => {
             getProducts()
-            // location.reload();
         })
         .catch(error => {
             alert(error)
@@ -166,18 +158,18 @@ const sumar = (id) => {
     
     let myHeaders = new Headers();
     myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
-    console.log(myHeaders)
+
     const requestOptions = {
         method: 'GET',
         headers: myHeaders,
         redirect: 'manual'
     };
     let url = "/api/carrito/" + id;
-    console.log(url)
+
     fetch(url,requestOptions)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+         
             if (data.code == 400 || data.code == 500) {
                 alert("Se ha generado el siguiente problema: " + data.message)
             } else {
@@ -193,7 +185,7 @@ const sumar = (id) => {
 const comprar = () => {
     let myHeaders = new Headers();
     myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
-    console.log(myHeaders)
+  
     const requestOptions = {
         method: 'POST',
         headers: myHeaders,
